@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Estoque Local</title>
+  <link rel="stylesheet" href="retalhos.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+  <header>
+    <h1>Controle de Estoque</h1>
+    <div>
+      <span style="margin-right: 1rem;">👤 Usuário: <strong id="usernameDisplay"></strong></span>
+      <strong><a href="retalhos.html">Retalhos</a></strong>
+     <strong><a href="index.html">Estoque</a></strong>
+      <button class="logout-button" onclick="logout()">Sair</button>
+    </div>
+  </header>
+
+  <div class="max-w-3xl mx-auto bg-white rounded p-6 shadow">
+    <h1 class="text-2xl font-bold mb-4">Sistema de Estoque</h1>
+
+    <div class="flex gap-2 mb-4">
+      <button onclick="abrirModal('Moletinho')" class="bg-blue-500 text-white px-4 py-2 rounded">+ Moletinho</button>
+      <button onclick="abrirModal('Linho')" class="bg-green-500 text-white px-4 py-2 rounded">+ Linho</button>
+      <button onclick="excluirSelecionados()" class="bg-red-500 text-white px-4 py-2 rounded ml-auto">Excluir Selecionados</button>
+    </div>
+
+    <div id="resumo" class="text-sm text-gray-600 mb-2"></div>
+
+    <div id="listaEstoque" class="mb-6 space-y-2"></div>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">Histórico de Exclusões</h2>
+    <button onclick="limparHistorico()" class="bg-yellow-500 text-white px-4 py-2 rounded mb-4">Limpar Histórico</button>
+    <div id="listaHistorico" class="text-sm text-gray-700"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-10">
+    <div class="bg-white p-6 rounded shadow-md w-96">
+      <h2 id="modalTitulo" class="text-lg font-semibold mb-2"></h2>
+      <input id="modalInput" type="number" class="w-full border px-3 py-1 mb-3" placeholder="Peso em kg">
+      <input id="modalDescricao" type="text" class="w-full border px-3 py-1 mb-3" placeholder="Descrição (opcional)">
+      <div class="flex justify-end gap-2">
+        <button onclick="fecharModal()" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">Cancelar</button>
+        <button onclick="confirmarModal()" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden fixed bottom-4 right-4 px-4 py-2 rounded shadow text-white z-50"></div>
+
+  <script src="retalhos.js"></script>
+   <script>
+    function logout() {
+      localStorage.removeItem('loggedUser');
+      window.location.href = "../index.html";
+    }
+
+    document.getElementById('usernameDisplay').textContent = localStorage.getItem('loggedUser');
+  </script>
+</body>
+</html>
